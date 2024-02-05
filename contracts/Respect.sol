@@ -22,6 +22,8 @@ abstract contract Respect is IRespect, ERC165, Initializable {
 
     error OpNotSupported();
 
+    bytes32 private constant _transferSig = bytes32(keccak256("Transfer(address,address,uint256)"));
+
     string private _name;
     string private _symbol;
 
@@ -124,6 +126,20 @@ abstract contract Respect is IRespect, ERC165, Initializable {
         || super.supportsInterface(interfaceId);
     }
 
+    function _emitERC20Transfer(address from, address to, uint256 value) internal {
+        bytes32 data = bytes32(uint256(value));
+        // TODO: Is this computed at compile time?
+        bytes32 t1 = _transferSig;
+        bytes32 t2 = bytes32(uint256(uint160(from)));
+        bytes32 t3 = bytes32(uint256(uint160(to)));
+
+        assembly {
+            let p := add(msize(), 0x20)
+            mstore(p, data)
+            log3(p, 0x20, t1, t2, t3)
+        }
+
+    }
 
     function _ownerOf(uint256 tokenId) internal pure returns (address) {
         return ownerFromTokenId(TokenId.wrap(tokenId));
@@ -158,6 +174,7 @@ abstract contract Respect is IRespect, ERC165, Initializable {
         _tokenByOwnerIndex[to].push(tokenId);
 
         emit Transfer(address(0), to, tId);
+        _emitERC20Transfer(address(0), to, value);
         // TODO: do we really need this? (ERC5192 would require this)
         emit Locked(tId);
 
@@ -186,6 +203,7 @@ abstract contract Respect is IRespect, ERC165, Initializable {
         }
 
         emit Transfer(owner, address(0), TokenId.unwrap(tokenId));
+        _emitERC20Transfer(owner, address(0), value);
 
         _afterBurn(tokenId, value);
     }
