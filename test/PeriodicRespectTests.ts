@@ -191,6 +191,39 @@ describe("PeriodicRespect", function () {
       await checkConsistencyOfBalance(proxy, signers[6]!.address, 1, 6);
       await checkConsistencyOfBalance(proxy, signers[7]!.address, 1, 10);
     });
+
+    it("should emit ERC721 and ERC20 transfer events", async function() {
+      const { proxy, signers, proxyOwner } = await loadFixture(deploy);            
+
+      const tokenId = packTokenId({
+        owner: signers[1]!.address,
+        mintType: 0, periodNumber: 0
+      });
+      const transferTopic = proxy.getEvent("Transfer").fragment.topicHash;
+      console.log("topicHash: ", transferTopic);
+
+      // await expect(proxy.mint(signers[1]!, 55, 0, 0))
+      //   .to.emit(proxy, "Transfer")
+      //     .withArgs(ethers.ZeroAddress, signers[1]!.address, tokenId)
+      //   .and.to.
+      //     .withArgs(ethers.ZeroAddress, signers[1]!.address, 55);
+
+      const tx = await proxy.mint(signers[1]!, 55, 0, 0);
+      const receipt = await tx.wait();
+      const events = receipt?.logs.filter((ev) => {
+        return ev.topics[0] == transferTopic
+      });
+
+      // ERC721 event
+      expect(events![0]!.topics[1]).to.equal(ethers.zeroPadValue("0x00", 32));
+      expect(events![0]!.topics[2]).to.equal(ethers.zeroPadValue(signers[1]!.address, 32));
+      expect(events![0]!.topics[3]).to.equal(tokenId);
+
+      // ERC20 event
+      expect(events![1]!.topics[1]).to.equal(ethers.zeroPadValue("0x00", 32));
+      expect(events![1]!.topics[2]).to.equal(ethers.zeroPadValue(signers[1]!.address, 32));
+      expect(events![1]!.data).to.equal(ethers.toBeHex(55, 32));
+    });
   });
 
   describe("burn", function () {
@@ -300,6 +333,35 @@ describe("PeriodicRespect", function () {
       await checkConsistencyOfBalance(proxy, signers[2]!.address, 1, 10);
       await checkConsistencyOfBalance(proxy, signers[3]!.address, 2, 21);
       await checkConsistencyOfBalance(proxy, signers[4]!.address, 2, 55);
+    });
+
+    it("should emit ERC721 and ERC20 transfer events", async function() {
+      const { proxy, signers, proxyOwner } = await loadFixture(deploy);            
+
+      const tokenId = packTokenId({
+        owner: signers[1]!.address,
+        mintType: 0, periodNumber: 0
+      });
+      const transferTopic = proxy.getEvent("Transfer").fragment.topicHash;
+      console.log("topicHash: ", transferTopic);
+
+      await expect(proxy.mint(signers[1]!, 55, 0, 0)).to.not.be.reverted;
+
+      const tx = await proxy.burn(tokenId);
+      const receipt = await tx.wait();
+      const events = receipt?.logs.filter((ev) => {
+        return ev.topics[0] == transferTopic
+      });
+
+      // ERC721 event
+      expect(events![0]!.topics[1]).to.equal(ethers.zeroPadValue(signers[1]!.address, 32));
+      expect(events![0]!.topics[2]).to.equal(ethers.zeroPadValue("0x00", 32));
+      expect(events![0]!.topics[3]).to.equal(tokenId);
+
+      // ERC20 event
+      expect(events![1]!.topics[1]).to.equal(ethers.zeroPadValue(signers[1]!.address, 32));
+      expect(events![1]!.topics[2]).to.equal(ethers.zeroPadValue("0x00", 32));
+      expect(events![1]!.data).to.equal(ethers.toBeHex(55, 32));
     });
   });
 

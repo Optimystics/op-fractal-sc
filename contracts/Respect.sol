@@ -127,8 +127,7 @@ abstract contract Respect is IRespect, ERC165, Initializable {
     }
 
     function _emitERC20Transfer(address from, address to, uint256 value) internal {
-        bytes32 data = bytes32(uint256(value));
-        // TODO: Is this computed at compile time?
+        bytes32 data = bytes32(value);
         bytes32 t1 = _transferSig;
         bytes32 t2 = bytes32(uint256(uint160(from)));
         bytes32 t3 = bytes32(uint256(uint160(to)));
