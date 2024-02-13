@@ -8,12 +8,14 @@ console.log('proxy: ', proxyAddr);
 export async function upgradeFractalRespectProxy() {
   const signers = await ethers.getSigners();
 
+  console.log('signer[0]: ', signers[0]);
+
   const factory = await ethers.getContractFactory("FractalRespect", signers[0]!);
 
   const contract = (await upgrades.upgradeProxy(proxyAddr, factory, {
     kind: "uups",
     constructorArgs: [
-      'ImplFractal2-1', 'IF2', signers[0]!.address, signers[0]!.address, 518400
+      'ImplFractal3', 'IF3', signers[0]!.address, signers[0]!.address, 518400
     ],
   }) as unknown) as FractalRespect;
 

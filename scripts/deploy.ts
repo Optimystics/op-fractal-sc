@@ -21,7 +21,8 @@ export async function deployFractalRespect() {
     {
       kind: 'uups',
       initializer: "initializeV2Whole(string,string,address,address,uint64)",
-      constructorArgs: ['ImplFractal', 'IF', implOwner, implExec, 518400]
+      constructorArgs: ['ImplFractal1', 'IF1', implOwner, implExec, 518400],
+      txOverrides: { gasPrice: 670000000 }
     }
   ) as unknown) as FractalRespect;
 
