@@ -109,6 +109,10 @@ abstract contract Respect is IRespect, ERC165, Initializable {
         return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, tokenId.toString())) : "";
     }
 
+    function contractURI() public view virtual returns (string memory) {
+        return "";
+    }
+
     function locked(uint256) external override pure returns (bool) {
         return true;
     }
