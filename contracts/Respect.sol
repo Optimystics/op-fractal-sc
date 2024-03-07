@@ -138,7 +138,7 @@ abstract contract Respect is IRespect, ERC165, Initializable {
         address to = ownerFromTokenId(tokenId);
         uint256 tId = TokenId.unwrap(tokenId);
 
-        require(to != address(0), "can't mint to the zero address");
+        require(to != address(0), "cannot mint to the zero address");
         require(!tokenExists(tId), "token id already minted");
 
         _beforeMint(tokenId, value);
@@ -171,7 +171,7 @@ abstract contract Respect is IRespect, ERC165, Initializable {
 
         _beforeBurn(tokenId, value);
 
-        // Check that token wasn't burned in _beforeBurn hook
+        // Check that token was not burned in _beforeBurn hook
         _requireExisting(TokenId.unwrap(tokenId));
 
         delete _values[tokenId];
