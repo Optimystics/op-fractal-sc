@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "prepare-full": "npx hardhat compile && npx hardhat test --typecheck",
-    "prepare": "npx hardhat compile"
+    "prepare-full": "mv .env-example .env && npx hardhat compile && npx hardhat test --typecheck",
+    "prepare": "mv .env-example .env && npx hardhat compile"
   },
   "repository": {
     "type": "git",
