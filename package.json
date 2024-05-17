@@ -4,7 +4,9 @@
   "description": "Smart contracts for Optimism Fractal. https://app.charmverse.io/op-grants/page-8947154553563161",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "prepare-full": "npx hardhat compile && npx hardhat test --typecheck",
+    "prepare": "npx hardhat compile"
   },
   "repository": {
     "type": "git",
