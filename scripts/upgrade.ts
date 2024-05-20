@@ -1,5 +1,5 @@
 import { ethers, upgrades } from "hardhat";
-import { FractalRespect } from "../typechain-types/contracts";
+import { FractalRespect } from "../typechain-types/contracts/FractalRespect.js";
 import "dotenv/config"
 
 const proxyAddr = process.env.OPGOERLI_PROXY_ADDR!; 

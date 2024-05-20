@@ -1,13 +1,14 @@
 import {
   time,
   loadFixture,
-} from "@nomicfoundation/hardhat-toolbox/network-helpers";
+} from "@nomicfoundation/hardhat-toolbox/network-helpers.js"
 import { expect } from "chai";
-import { ethers, upgrades } from "hardhat";
-import { FractalRespect } from "../typechain-types/contracts/FractalRespect";
+import hre from "hardhat";
+const { ethers, upgrades } = hre;
+import { FractalRespect } from "../typechain-types/contracts/FractalRespect.js";
 import { BigNumberish } from "ethers";
-import { type TokenIdDataStruct, packTokenId, unpackTokenId, tokenIdDataEq, normTokenIdData } from "../utils/tokenId";
-import { checkConsistencyOfBalance, checkConsistencyOfSupply } from "./consistencyChecks"
+import { type TokenIdDataStruct, packTokenId, unpackTokenId, tokenIdDataEq, normTokenIdData } from "../utils/tokenId.js";
+import { checkConsistencyOfBalance, checkConsistencyOfSupply } from "./consistencyChecks.js"
 
 export type GroupRanksStruct = FractalRespect.GroupRanksStruct;
 
@@ -239,7 +240,7 @@ describe("FractalRespect", function () {
 
       await expect(proxyFromExec.submitRanks(submitRanksEx1)).to.not.be.reverted;
 
-      time.increase(604800); // 7 days
+      await time.increase(604800); // 7 days
 
       await expect(proxyFromExec.submitRanks(submitRanksEx1)).to.not.be.reverted;
     });
@@ -251,7 +252,7 @@ describe("FractalRespect", function () {
 
       expect(await proxyFromExec.periodNumber()).to.equal(1);
 
-      time.increase(604800); // 7 days
+      await time.increase(604800); // 7 days
 
       await expect(proxyFromExec.submitRanks(submitRanksEx2)).to.not.be.reverted;
 
@@ -316,6 +317,8 @@ describe("FractalRespect", function () {
     
     it('should issue respect based on rankings', async function() {
       const { submitRanksEx1, submitRanksEx2, proxyFromExec } = await loadFixture(deploy);
+
+      console.log("OK1")
 
       // First period
       await expect(proxyFromExec.submitRanks(submitRanksEx1)).to.not.be.reverted;
@@ -403,7 +406,9 @@ describe("FractalRespect", function () {
       );
       await checkConsistencyOfSupply(proxyFromExec, 13, 369);
 
-      time.increase(604800); // 7 days
+      console.log("OK2")
+
+      await time.increase(604800); // 7 days
 
       // Second period
       await expect(proxyFromExec.submitRanks(submitRanksEx2)).to.not.be.reverted;
@@ -458,7 +463,7 @@ describe("FractalRespect", function () {
       expect(await proxyFromOther.valueOfToken(id4)).to.equal(21);
       expect(await proxyFromOther.ownerOf(id4)).to.equal(submitRanksEx1[0]!.ranks[3]!);
 
-      time.increase(604800); // 7 days
+      await time.increase(604800); // 7 days
 
       // Second period
       await expect(proxyFromExec.submitRanks(submitRanksEx2)).to.not.be.reverted;
@@ -498,7 +503,7 @@ describe("FractalRespect", function () {
 
       await expect(proxyFromExec.submitRanks(submitRanksEx1)).to.not.be.reverted;
 
-      time.increase(86400); // 1 day
+      await time.increase(86400); // 1 day
 
       await expect(proxyFromExec.submitRanks(submitRanksEx2)).to.be.revertedWith(
         "ranksDelay amount of time has to pass before next submitRanks"
@@ -534,7 +539,7 @@ describe("FractalRespect", function () {
 
       // Now calling to set new exec from the (current) executor
       await expect(proxyFromOther.setExecutor(proxyExecutor)).to.not.be.reverted;
-      time.increase(604800); // 7 days
+      await time.increase(604800); // 7 days
       await expect(proxyFromExec.submitRanks(submitRanksEx1)).to.not.be.reverted;
     });
   });

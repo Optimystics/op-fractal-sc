@@ -2,11 +2,13 @@
   "name": "op-fractal-sc",
   "version": "0.1.0",
   "description": "Smart contracts for Optimism Fractal. https://app.charmverse.io/op-grants/page-8947154553563161",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "test",
     "prepare-full": "cp .env-example .env && npx hardhat compile && npx hardhat test --typecheck",
-    "prepare": "cp .env-example .env && npx hardhat compile"
+    "prepare": "cp .env-example .env && npx hardhat compile",
+    "test": "NODE_OPTIONS='--experimental-loader ts-node/esm/transpile-only --no-warnings=ExperimentalWarning' hardhat test",
+    "script": "NODE_OPTIONS='--experimental-loader ts-node/esm/transpile-only --no-warnings=ExperimentalWarning' hardhat run"
   },
   "repository": {
     "type": "git",

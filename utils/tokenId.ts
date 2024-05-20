@@ -1,6 +1,7 @@
 import { BigNumberish } from 'ethers';
-import { PeriodicRespect } from '../typechain-types/contracts/PeriodicRespect';
-import { ethers } from 'hardhat';
+import { PeriodicRespect } from '../typechain-types/contracts/PeriodicRespect.js';
+import hre from 'hardhat';
+const { ethers } = hre;
 
 export type TokenIdDataStruct = PeriodicRespect.TokenIdDataStruct;
 export type TokenIdDataStructOutput = PeriodicRespect.TokenIdDataStructOutput;

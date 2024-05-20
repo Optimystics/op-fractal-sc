@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import { FractalRespect } from "../typechain-types/contracts";
+import { FractalRespect } from "../typechain-types/contracts/FractalRespect.js";
 
 // FIXME: does not work after updates to deploy
 // npx hardhat node
