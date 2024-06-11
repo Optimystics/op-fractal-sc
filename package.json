@@ -9,7 +9,7 @@
     "/dist"
   ],
   "scripts": {
-    "prepare-full": "cp .env-example .env && npx hardhat compile && npx tsc && npm run test",
+    "prepare-full": "cp .env-example .env && npx hardhat compile && npx tsc && npm run test && cp typechain-types/package.json dist/typechain-types/",
     "prepare": "cp .env-example .env && npx hardhat compile && npx tsc",
     "test": "NODE_OPTIONS='--experimental-loader ts-node/esm/transpile-only --no-warnings=ExperimentalWarning' hardhat test",
     "script": "NODE_OPTIONS='--experimental-loader ts-node/esm/transpile-only --no-warnings=ExperimentalWarning' hardhat run"
