@@ -7,9 +7,16 @@
     "noUncheckedIndexedAccess": true,
     "strict": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "ethers": ["./node_modules/ethers/lib.commonjs/index.d.ts"]
+    },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
+    "declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+    "declarationMap": true,                           /* Create sourcemaps for d.ts files. */
+    "outDir": "./dist/"                                   /* Specify an output folder for all emitted files. */
   },
   "ts-node": {
-    "experimentalResolver": true
+    "experimentalResolver": true,
+    "skipIgnore": true
   }
 }

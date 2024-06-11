@@ -1,5 +1,5 @@
 import { BigNumberish } from "ethers";
-import { PeriodicRespect, FractalRespect } from "../typechain-types";
+import { PeriodicRespect, FractalRespect } from "../typechain-types/index.js";
 import chai, { expect } from "chai";
 
 type SupportedContracts = PeriodicRespect | FractalRespect;
