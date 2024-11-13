@@ -3,31 +3,67 @@
   "version": "0.1.0",
   "description": "Smart contracts for Optimism Fractal. https://app.charmverse.io/op-grants/page-8947154553563161",
   "type": "commonjs",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "/dist",
     "/contracts"
   ],
   "scripts": {
-    "build": "npx hardhat compile",
-    "prepare-full": "cp .env-example .env && npx hardhat compile && npx tsc && npm run test",
-    "prepare": "cp .env-example .env && npx hardhat compile && npx tsc",
-    "clean": "npx hardhat clean && rm -rf dist/*",
-    "test": "npx hardhat test"
+    "clean": "rimraf dist && npx hardhat --tsconfig tsconfig.cjs.json clean",
+    "build-contracts": "npx hardhat --tsconfig tsconfig.cjs.json compile",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "to-dual-package": "tsconfig-to-dual-package tsconfig.esm.json tsconfig.cjs.json",
+    "build": "npm run build-contracts && npm run build:cjs && npm run build:esm && npm run to-dual-package",
+    "build-clean": "npm run clean && npm run build",
+    "prepack": "npm run build-clean",
+    "test": "npx hardhat --tsconfig tsconfig.cjs.json test",
+    "test-gas": "REPORT_GAS=true npx --tsconfig tsconfig.cjs.json hardhat test",
+    "prepare-full": "cp .env-example .env && npm run build-clean && npm run test",
+    "prepare": "cp .env-example .env && npm run build-clean"
   },
   "exports": {
     ".": {
-      "default": "./dist/index.js"
+      "require": {
+        "types": "./dist/dts/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      },
+      "import": {
+        "types": "./dist/dts/index.d.ts",
+        "default": "./dist/esm/index.js"
+      }
     },
     "./utils/*": {
-      "default": "./dist/utils/*"
+      "require": {
+        "types": "./dist/dts/utils/*",
+        "default": "./dist/cjs/utils/*"
+      },
+      "import": {
+        "types": "./dist/dts/utils/*",
+        "default": "./dist/esm/utils/*"
+      }
     },
     "./typechain-types": {
-      "default": "./dist/index.js"
+      "require": {
+        "types": "./dist/dts/typechain-types/index.js",
+        "default": "./dist/cjs/typechain-types/index.js"
+      },
+      "import": {
+        "types": "./dist/dts/typechain-types/index.js",
+        "default": "./dist/esm/typechain-types/index.js"
+      }
     },
     "./typechain-types/*": {
-      "default": "./dist/typechain-types/*"
+      "require": {
+        "types": "./dist/dts/typechain-types/*",
+        "default": "./dist/cjs/typechain-types/*"
+      },
+      "import": {
+        "types": "./dist/dts/typechain-types/*",
+        "default": "./dist/esm/typechain-types/*"
+      }
     }
   },
   "repository": {
@@ -52,7 +88,9 @@
     "@openzeppelin/hardhat-upgrades": "^2.3.1",
     "@types/chai-subset": "^1.3.3",
     "chai-subset": "^1.6.0",
-    "hardhat": "^2.17.3"
+    "hardhat": "^2.17.3",
+    "rimraf": "^6.0.1",
+    "tsconfig-to-dual-package": "^1.2.0"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.9.3",
