@@ -30,7 +30,6 @@
       "default": "./dist/typechain-types/*"
     }
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sim31/op-fractal-sc.git"
