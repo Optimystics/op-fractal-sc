@@ -2,18 +2,19 @@
   "name": "op-fractal-sc",
   "version": "0.1.0",
   "description": "Smart contracts for Optimism Fractal. https://app.charmverse.io/op-grants/page-8947154553563161",
-  "type": "module",
+  "type": "commonjs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "/dist"
+    "/dist",
+    "/contracts"
   ],
   "scripts": {
     "build": "npx hardhat compile",
-    "prepare-full": "cp .env-example .env && npx hardhat compile && npx tsc && npm run test && cp typechain-types/package.json dist/typechain-types/",
-    "prepare": "cp .env-example .env && npx hardhat compile && npx tsc && cp typechain-types/package.json dist/typechain-types/",
-    "test": "NODE_OPTIONS='--experimental-loader ts-node/esm/transpile-only --no-warnings=ExperimentalWarning' hardhat test",
-    "script": "NODE_OPTIONS='--experimental-loader ts-node/esm/transpile-only --no-warnings=ExperimentalWarning' hardhat run"
+    "prepare-full": "cp .env-example .env && npx hardhat compile && npx tsc && npm run test",
+    "prepare": "cp .env-example .env && npx hardhat compile && npx tsc",
+    "clean": "npx hardhat clean && rm -rf dist/*",
+    "test": "npx hardhat test"
   },
   "repository": {
     "type": "git",

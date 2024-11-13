@@ -1,17 +1,17 @@
 import {
   time,
   loadFixture,
-} from "@nomicfoundation/hardhat-toolbox/network-helpers.js";
+} from "@nomicfoundation/hardhat-toolbox/network-helpers";
 import chai, { expect } from "chai";
 import chaiSubset from "chai-subset";
 import hre from "hardhat";
 const { ethers, upgrades } = hre;
-import { FractalRespect } from "../typechain-types/index.js";
+import { FractalRespect } from "../typechain-types/index";
 import { BigNumberish } from "ethers";
-import { type TokenIdDataStruct, packTokenId, unpackTokenId, tokenIdDataEq, normTokenIdData } from "../utils/tokenId.js";
-import { checkConsistencyOfBalance, checkConsistencyOfSupply } from "./consistencyChecks.js";
-import { deploy as deployPeriodicRespect } from "./PeriodicRespectTests.js";
-import { GroupRanksStruct, deploy as deployFractalRespect } from './FractalRespectTests.js';
+import { type TokenIdDataStruct, packTokenId, unpackTokenId, tokenIdDataEq, normTokenIdData } from "../utils/tokenId";
+import { checkConsistencyOfBalance, checkConsistencyOfSupply } from "./consistencyChecks";
+import { deploy as deployPeriodicRespect } from "./PeriodicRespectTests";
+import { GroupRanksStruct, deploy as deployFractalRespect } from './FractalRespectTests';
 
 export async function deploy() {
   return await loadFixture(deployPeriodicRespect);

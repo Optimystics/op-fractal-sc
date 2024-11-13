@@ -1,15 +1,15 @@
 import {
   time,
   loadFixture,
-} from "@nomicfoundation/hardhat-toolbox/network-helpers.js";
+} from "@nomicfoundation/hardhat-toolbox/network-helpers";
 import chai, { expect } from "chai";
 import chaiSubset from "chai-subset";
 import hre from "hardhat";
 const { ethers, upgrades } = hre;
-import { PeriodicRespect, PeriodicRespect__factory } from "../typechain-types/index.js";
+import { PeriodicRespect, PeriodicRespect__factory } from "../typechain-types/index";
 import { BigNumberish } from "ethers";
-import { type TokenIdDataStruct, packTokenId, unpackTokenId, tokenIdDataEq, normTokenIdData } from "../utils/tokenId.js";
-import { checkConsistencyOfBalance, checkConsistencyOfSupply } from "./consistencyChecks.js";
+import { type TokenIdDataStruct, packTokenId, unpackTokenId, tokenIdDataEq, normTokenIdData } from "../utils/tokenId";
+import { checkConsistencyOfBalance, checkConsistencyOfSupply } from "./consistencyChecks";
 
 chai.use(chaiSubset);
 

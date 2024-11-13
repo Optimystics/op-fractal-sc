@@ -5,10 +5,10 @@ import {
 import { expect } from "chai";
 import hre from "hardhat";
 const { ethers, upgrades } = hre;
-import { FractalRespect } from "../typechain-types/contracts/FractalRespect.js";
+import { FractalRespect } from "../typechain-types/contracts/FractalRespect";
 import { BigNumberish } from "ethers";
-import { type TokenIdDataStruct, packTokenId, unpackTokenId, tokenIdDataEq, normTokenIdData } from "../utils/tokenId.js";
-import { checkConsistencyOfBalance, checkConsistencyOfSupply } from "./consistencyChecks.js"
+import { type TokenIdDataStruct, packTokenId, unpackTokenId, tokenIdDataEq, normTokenIdData } from "../utils/tokenId";
+import { checkConsistencyOfBalance, checkConsistencyOfSupply } from "./consistencyChecks"
 
 export type GroupRanksStruct = FractalRespect.GroupRanksStruct;
 
