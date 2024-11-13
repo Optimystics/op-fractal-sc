@@ -27,41 +27,41 @@
   "exports": {
     ".": {
       "require": {
-        "types": "./dist/dts/index.d.ts",
+        "types": "./dist/cjs/index.d.ts",
         "default": "./dist/cjs/index.js"
       },
       "import": {
-        "types": "./dist/dts/index.d.ts",
+        "types": "./dist/esm/index.d.ts",
         "default": "./dist/esm/index.js"
       }
     },
     "./utils/*": {
       "require": {
-        "types": "./dist/dts/utils/*",
+        "types": "./dist/cjs/utils/*",
         "default": "./dist/cjs/utils/*"
       },
       "import": {
-        "types": "./dist/dts/utils/*",
+        "types": "./dist/esm/utils/*",
         "default": "./dist/esm/utils/*"
       }
     },
     "./typechain-types": {
       "require": {
-        "types": "./dist/dts/typechain-types/index.js",
+        "types": "./dist/cjs/typechain-types/index.d.ts",
         "default": "./dist/cjs/typechain-types/index.js"
       },
       "import": {
-        "types": "./dist/dts/typechain-types/index.js",
+        "types": "./dist/esm/typechain-types/index.d.ts",
         "default": "./dist/esm/typechain-types/index.js"
       }
     },
     "./typechain-types/*": {
       "require": {
-        "types": "./dist/dts/typechain-types/*",
+        "types": "./dist/cjs/typechain-types/*",
         "default": "./dist/cjs/typechain-types/*"
       },
       "import": {
-        "types": "./dist/dts/typechain-types/*",
+        "types": "./dist/esm/typechain-types/*",
         "default": "./dist/esm/typechain-types/*"
       }
     }
