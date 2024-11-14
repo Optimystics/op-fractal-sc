@@ -25,16 +25,6 @@
     "prepare": "cp .env-example .env && npm run build-clean"
   },
   "exports": {
-    ".": {
-      "require": {
-        "types": "./dist/cjs/index.d.ts",
-        "default": "./dist/cjs/index.js"
-      },
-      "import": {
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.js"
-      }
-    },
     "./utils/*": {
       "require": {
         "types": "./dist/cjs/utils/*",
