@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "description": "Smart contracts for Optimism Fractal. https://app.charmverse.io/op-grants/page-8947154553563161",
   "type": "commonjs",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
   "files": [
     "/dist",
     "/contracts"
