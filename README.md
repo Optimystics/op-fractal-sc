@@ -1,5 +1,7 @@
-# Optimism Fractal smart contracts
+# Optimism Fractal smart contracts and utilities.
 Smart contract enabling a community to play the [Respect Game](https://optimismfractal.com/details) and award Respect NTT for it.
+
+This package also contains ethers contract types (generated using typechain) and utilities to help interact with the smart contract.
 
 ## Run / test
 ```shell
